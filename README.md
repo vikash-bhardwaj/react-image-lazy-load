@@ -5,7 +5,7 @@ React Image Lazy Load is easy to use React component which helps you defer loadi
 
 > React Image Lazy Load plug-in forked from <a target="_blank" href="https://github.com/loktar00/react-lazy-load">react-lazy-load</a>
 
-This version has below additions on top of original plug-in:
+This version has below addition on top of original plug-in:
 <ul>
   <li>This plug-in has been extended to provide the capability of adding any loader/placeholder image to the lazyload component.</li>
 </ul>
