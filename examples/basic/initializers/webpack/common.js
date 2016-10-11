@@ -14,7 +14,7 @@ export default {
     vendor: [
       'react',
       'react-dom',
-      'react-lazy-load',
+      'react-image-lazy-load',
     ],
   },
 
@@ -28,7 +28,7 @@ export default {
     extensions: ['', '.js', '.jsx'],
     alias: {
       'react': path.resolve('./node_modules/react'),
-      'react-lazy-load': path.join(__dirname, '..', '..', '..', '..', 'lib', 'LazyLoad'),
+      'react-image-lazy-load': path.join(__dirname, '..', '..', '..', '..', 'lib', 'LazyLoad'),
     },
   },
 
@@ -56,6 +56,13 @@ export default {
           ],
         },
       },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loaders: [
+          'file?hash=sha512&digest=hex&name=[hash].[ext]',
+          'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+        ]
+      }
     ],
   },
 };

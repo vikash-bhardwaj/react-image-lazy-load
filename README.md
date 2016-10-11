@@ -1,7 +1,7 @@
-React Lazy Load Component
+React Image Lazy Load Component
 =========================
 
-React Lazy Load is easy to use React component which helps you defer loading content in predictable way. It's fast, works in IE8+, 6KB minified and uses debounce function by default. You can also use component inside scrolling container, such as div with scrollbar. It will be found automatically. Check out an example.
+React Image Lazy Load is easy to use React component which helps you defer loading Images in predictable way. It's fast, works in IE8+, 6KB minified and uses debounce function by default. You can also use component inside scrolling container, such as div with scrollbar. It will be found automatically. Check out an example.
 
 [![build status](https://img.shields.io/travis/loktar00/react-lazy-load.svg?style=flat-square)](https://travis-ci.org/loktar00/react-lazy-load)
 [![dependency status](https://david-dm.org/loktar00/react-lazy-load.svg?style=flat-square)](https://david-dm.org/loktar00/react-lazy-load)
@@ -11,46 +11,73 @@ React Lazy Load is easy to use React component which helps you defer loading con
 React Lazy Load requires **React 0.14 or later.**
 
 ```
-npm install --save react-lazy-load
+npm install --save react-image-lazy-load
 ```
 
 ## Examples
-* [Basic](https://github.com/loktar00/react-lazy-load/tree/master/examples/basic)
+* [Basic](https://github.com/vikash-bhardwaj/react-image-lazy-load/tree/master/examples/basic)
 
 ## Usage
 
 ```jsx
 import React from 'react';
-import LazyLoad from 'react-lazy-load';
+import LazyLoad from 'react-image-lazy-load';
 
 const MyComponent = () => (
   <div>
     Scroll to load images.
     <div className="filler" />
-    <LazyLoad height={762} offsetVertical={300}>
-      <img src='http://apod.nasa.gov/apod/image/1502/HDR_MVMQ20Feb2015ouellet1024.jpg' />
-    </LazyLoad>
+    <LazyLoad height={762} offsetVertical={300} loaderImage originalSrc="http://apod.nasa.gov/apod/image/1502/HDR_MVMQ20Feb2015ouellet1024.jpg" imageProps={{
+      src: require('../../images/ring.gif'),
+      alt: "DR_MVMQ20Feb2015ouellet1024.jpg",
+      ref: "image",
+      className: "className"
+    }} />
     <div className="filler" />
-    <LazyLoad height={683} offsetTop={200}>
-      <img src='http://apod.nasa.gov/apod/image/1502/2015_02_20_conj_bourque1024.jpg' />
-    </LazyLoad>
+    <LazyLoad height={683} offsetTop={200} imageProps={{
+      src: "http://apod.nasa.gov/apod/image/1502/2015_02_20_conj_bourque1024.jpg",
+      alt: "2015_02_20_conj_bourque1024.jpg",
+      ref: "image",
+      className: "className"
+    }} />
     <div className="filler" />
-    <LazyLoad height={480} offsetHorizontal={50}>
-      <img src='http://apod.nasa.gov/apod/image/1502/MarsPlume_jaeschke_480.gif' />
-    </LazyLoad>
+    <LazyLoad height={480} offsetHorizontal={50} imageProps={{
+      src: "http://apod.nasa.gov/apod/image/1502/MarsPlume_jaeschke_480.gif",
+      alt: "1502/MarsPlume_jaeschke_480.gif",
+      ref: "image",
+      className: "className"
+    }} />
     <div className="filler" />
     <LazyLoad
       height={720}
-      onContentVisible={() => console.log('look ma I have been lazyloaded!')}
-    >
-      <img src='http://apod.nasa.gov/apod/image/1502/ToadSky_Lane_1080_annotated.jpg' />
-    </LazyLoad>
+      onContentVisible={() => console.log('look ma I have been lazyloaded!')} originalSrc="http://apod.nasa.gov/apod/image/1502/ToadSky_Lane_1080_annotated.jpg" loaderImage={true} imageProps={{
+        src: require('../../images/ring.gif'),
+        alt: "ToadSky_Lane_1080_annotated.jpg",
+        ref: "image",
+        className: "image"
+      }} />
     <div className="filler" />
   </div>
 );
 ```
 
 ## Props
+
+### imageProps
+Type: `Object` Required: `Yes`
+
+The `imageProps` is a required props for this plug-in to work. This can except any possible HTML attributes for `img` tag which also includes data attributes and React specific `ref` and `className`.
+
+### loaderImage
+Type: `Boolean` Default: `false`
+
+The `loaderImage` is a Boolean prop to define if the image has to have a loader/placeholder image. If this set to true then prop `originalSrc` becomes required. <br />
+If `loaderImage` is set to true then loader/placeholder image can be set to 'src' attribute of `imageProps` prop.
+
+### originalSrc
+Type: `String`
+
+`originalSrc` is useful when you want the image tag to load first any loader/placeholder image. This prop becomes required if prop `loaderImage` is set to true for the component.
 
 #### offset
 Type: `Number|String` Default: `0`

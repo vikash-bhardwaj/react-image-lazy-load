@@ -1,4 +1,4 @@
-import React, { Children, Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import { add, remove } from 'eventlistener';
 import debounce from 'lodash.debounce';
@@ -20,7 +20,7 @@ export default class LazyLoad extends Component {
       }
     }
 
-    this.state = { visible: false };
+    this.state = { visible: false, loaded: false };
   }
 
   componentDidMount() {
@@ -100,8 +100,37 @@ export default class LazyLoad extends Component {
     remove(eventNode, 'scroll', this.lazyLoadHandler);
   }
 
+  preLoadImage() {
+    const { imageProps, originalSrc } = this.props;
+    const { visible, loaded } = this.state;
+    const self = this;
+
+    if(originalSrc && visible && !loaded) {
+      this.newImg = new Image();
+      
+      this.newImg.onload = function(evt) {
+        self.setState({ loaded: true });
+      }
+      // handle failure
+      this.newImg.onerror = function(){
+        console.log(originalSrc, "couldn't be loaded");
+      };
+      
+      this.newImg.src = originalSrc;
+    }
+    
+    if(visible && !loaded) {
+      return <img {...imageProps} />
+    } else if(visible && loaded) {
+      return <img {...imageProps} src={originalSrc} />
+    } else if(!visible && !loaded) {
+      return <img {...imageProps} />
+    }
+
+  }
+
   render() {
-    const { children, className, height, width } = this.props;
+    const { className, height, width, imageProps, loaderImage } = this.props;
     const { visible } = this.state;
 
     const elStyles = { height, width };
@@ -111,16 +140,25 @@ export default class LazyLoad extends Component {
       (className ? ` ${className}` : '')
     );
 
+    // Make sure to load the image preload in case loaderImage is set to true 
+    var img = null;
+    if(loaderImage === true) {
+      img = this.preLoadImage();
+    } else {
+      if(visible) {
+        img = <img {...imageProps} />;
+      }
+    }
+
     return (
       <div className={elClasses} style={elStyles}>
-        {visible && Children.only(children)}
+        {img}
       </div>
     );
   }
 }
 
 LazyLoad.propTypes = {
-  children: PropTypes.node.isRequired,
   className: PropTypes.string,
   debounce: PropTypes.bool,
   height: PropTypes.oneOfType([
@@ -141,6 +179,9 @@ LazyLoad.propTypes = {
     PropTypes.number,
   ]),
   onContentVisible: PropTypes.func,
+  originalSrc: PropTypes.string,
+  loaderImage: PropTypes.bool,
+  imageProps: PropTypes.object.isRequired
 };
 
 LazyLoad.defaultProps = {
@@ -153,4 +194,5 @@ LazyLoad.defaultProps = {
   offsetTop: 0,
   offsetVertical: 0,
   throttle: 250,
+  loaderImage: false
 };
