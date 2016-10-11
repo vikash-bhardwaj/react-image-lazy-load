@@ -77,7 +77,7 @@ If `loaderImage` is set to true then loader/placeholder image can be set to 'src
 ### originalSrc
 Type: `String`
 
-`originalSrc` is useful when you want the image tag to load first any loader/placeholder image. This prop becomes required if prop `loaderImage` is set to true for the component.
+`originalSrc` is useful when you want the image tag to be loaded first with any loader/placeholder image. This prop becomes required if prop `loaderImage` is set to true for the component. This expect the original image SRC which should replace the loader/placeholder image once original image gets loaded.
 
 #### offset
 Type: `Number|String` Default: `0`
