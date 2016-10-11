@@ -3,6 +3,13 @@ React Image Lazy Load Component
 
 React Image Lazy Load is easy to use React component which helps you defer loading Images in predictable way. It's fast, works in IE8+, 6KB minified and uses debounce function by default. You can also use component inside scrolling container, such as div with scrollbar. It will be found automatically. Check out an example.
 
+> React Image Lazy Load plug-in forked from <a target="_blank" href="https://github.com/loktar00/react-lazy-load">react-lazy-load</a>
+
+This version has below additions on top of original plug-in:
+<ul>
+  <li>This plug-in has been extended to provide the capability of adding any loader/placeholder image to the lazyload component.</li>
+</ul>
+
 [![build status](https://img.shields.io/travis/loktar00/react-lazy-load.svg?style=flat-square)](https://travis-ci.org/loktar00/react-lazy-load)
 [![dependency status](https://david-dm.org/loktar00/react-lazy-load.svg?style=flat-square)](https://david-dm.org/loktar00/react-lazy-load)
 [![npm downloads](https://img.shields.io/npm/dm/react-lazy-load.svg?style=flat-square)](https://www.npmjs.com/package/react-lazy-load)
