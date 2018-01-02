@@ -1,6 +1,6 @@
 {
   "name": "react-image-lazy-load",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "React Image Lazy Load plug-in with loader/placeholder image option - Forked from react-lazy-load plug-in - https://github.com/loktar00/react-lazy-load",
   "main": "./lib/LazyLoad.js",
   "scripts": {
