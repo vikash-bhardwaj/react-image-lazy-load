@@ -12,8 +12,8 @@
     "npm": "^3.0.0"
   },
   "dependencies": {
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0"
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.4.0",
