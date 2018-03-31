@@ -108,7 +108,7 @@ export default class LazyLoad extends Component {
 
     if(originalSrc && visible && !loaded) {
       this.newImg = new Image();
-      
+
       this.newImg.onload = function(evt) {
         self.setState({ loaded: true });
       }
@@ -116,10 +116,10 @@ export default class LazyLoad extends Component {
       this.newImg.onerror = function(){
         console.log(originalSrc, "couldn't be loaded");
       };
-      
+
       this.newImg.src = originalSrc;
     }
-    
+
     if(visible && !loaded) {
       return <img {...imageProps} />
     } else if(visible && loaded) {
@@ -132,16 +132,17 @@ export default class LazyLoad extends Component {
 
   render() {
     const { className, height, width, imageProps, loaderImage } = this.props;
-    const { visible } = this.state;
+    const { visible, loaded } = this.state;
 
     const elStyles = { height, width };
     const elClasses = (
       'LazyLoad' +
       (visible ? ' is-visible' : '') +
+      (loaded ? ' loaded' : '') +
       (className ? ` ${className}` : '')
     );
 
-    // Make sure to load the image preload in case loaderImage is set to true 
+    // Make sure to load the image preload in case loaderImage is set to true
     var img = null;
     if(loaderImage === true) {
       img = this.preLoadImage();
