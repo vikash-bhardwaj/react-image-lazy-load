@@ -132,12 +132,13 @@ export default class LazyLoad extends Component {
 
   render() {
     const { className, height, width, imageProps, loaderImage } = this.props;
-    const { visible } = this.state;
+    const { visible, loaded } = this.state;
 
     const elStyles = { height, width };
     const elClasses = (
       'LazyLoad' +
       (visible ? ' is-visible' : '') +
+      (loaded ? ' is-loaded' : '') +
       (className ? ` ${className}` : '')
     );
 
