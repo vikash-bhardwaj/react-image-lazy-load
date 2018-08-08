@@ -134,6 +134,10 @@ export default class LazyLoad extends Component {
     const { className, height, width, imageProps, loaderImage } = this.props;
     const { visible, loaded } = this.state;
 
+    if (!this.props.originalSrc && !imageProps.src) {
+      return null;
+    }
+
     const elStyles = { height, width };
     const elClasses = (
       'LazyLoad' +
@@ -155,6 +159,9 @@ export default class LazyLoad extends Component {
     return (
       <div className={elClasses} style={elStyles}>
         {img}
+        {this.props.addNoScript ? (<noscript>
+          <img className={imageProps.className} src={this.props.originalSrc || imageProps.src} alt={imageProps.alt} />
+        </noscript>) : null}
       </div>
     );
   }
@@ -183,7 +190,8 @@ LazyLoad.propTypes = {
   onContentVisible: PropTypes.func,
   originalSrc: PropTypes.string,
   loaderImage: PropTypes.bool,
-  imageProps: PropTypes.object.isRequired
+  imageProps: PropTypes.object.isRequired,
+  addNoScript: PropTypes.bool,
 };
 
 LazyLoad.defaultProps = {
@@ -196,5 +204,6 @@ LazyLoad.defaultProps = {
   offsetTop: 0,
   offsetVertical: 0,
   throttle: 250,
-  loaderImage: false
+  loaderImage: false,
+  addNoScript: true,
 };
