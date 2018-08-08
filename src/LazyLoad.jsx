@@ -134,6 +134,10 @@ export default class LazyLoad extends Component {
     const { className, height, width, imageProps, loaderImage } = this.props;
     const { visible, loaded } = this.state;
 
+    if (!this.props.originalSrc && !imageProps.src) {
+      return null;
+    }
+
     const elStyles = { height, width };
     const elClasses = (
       'LazyLoad' +
@@ -144,6 +148,7 @@ export default class LazyLoad extends Component {
 
     // Make sure to load the image preload in case loaderImage is set to true 
     var img = null;
+    let noScriptImg = null;
     if(loaderImage === true) {
       img = this.preLoadImage();
     } else {
@@ -152,12 +157,23 @@ export default class LazyLoad extends Component {
       }
     }
 
+    if(this.props.addNoScript) {
+      const imgSrc = this.props.originalSrc || imageProps.src;
+      const className = imageProps.className;
+      const altVal = imageProps.alt || imgSrc;
+      if(className) {
+        noScriptImg = `<img class=${imageProps.className} src=${imgSrc} alt=${altVal} />`;
+      } else {
+        noScriptImg = `<img src=${imgSrc} alt=${altVal} />`;
+      }
+      
+    }
     return (
       <div className={elClasses} style={elStyles}>
         {img}
-        {noScript ? (<noscript
+        {this.props.addNoScript ? (<noscript
           dangerouslySetInnerHTML={{
-            __html: {img}
+            __html: noScriptImg
           }}
         />) : null}
       </div>
@@ -189,7 +205,7 @@ LazyLoad.propTypes = {
   originalSrc: PropTypes.string,
   loaderImage: PropTypes.bool,
   imageProps: PropTypes.object.isRequired,
-  noScript: PropTypes.bool,
+  addNoScript: PropTypes.bool,
 };
 
 LazyLoad.defaultProps = {
@@ -203,5 +219,5 @@ LazyLoad.defaultProps = {
   offsetVertical: 0,
   throttle: 250,
   loaderImage: false,
-  noScript: true,
+  addNoScript: true,
 };
