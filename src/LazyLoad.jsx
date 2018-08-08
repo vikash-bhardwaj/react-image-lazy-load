@@ -155,6 +155,11 @@ export default class LazyLoad extends Component {
     return (
       <div className={elClasses} style={elStyles}>
         {img}
+        {noScript ? (<noscript
+          dangerouslySetInnerHTML={{
+            __html: {img}
+          }}
+        />) : null}
       </div>
     );
   }
@@ -183,7 +188,8 @@ LazyLoad.propTypes = {
   onContentVisible: PropTypes.func,
   originalSrc: PropTypes.string,
   loaderImage: PropTypes.bool,
-  imageProps: PropTypes.object.isRequired
+  imageProps: PropTypes.object.isRequired,
+  noScript: PropTypes.bool,
 };
 
 LazyLoad.defaultProps = {
@@ -196,5 +202,6 @@ LazyLoad.defaultProps = {
   offsetTop: 0,
   offsetVertical: 0,
   throttle: 250,
-  loaderImage: false
+  loaderImage: false,
+  noScript: true,
 };
