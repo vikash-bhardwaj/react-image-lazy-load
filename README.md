@@ -86,6 +86,11 @@ Type: `String`
 
 `originalSrc` is useful when you want the image tag to be loaded first with any loader/placeholder image. This prop becomes required if prop `loaderImage` is set to true for the component. This expect the original image SRC which should replace the loader/placeholder image once original image gets loaded.
 
+### addNoScript
+Type: `Boolean` Default: `true`
+
+`addNoScript` controls adding a noscript Tag to wrap the actual image so that it supports SEO requirements to inndex actual Images.
+
 #### offset
 Type: `Number|String` Default: `0`
 
