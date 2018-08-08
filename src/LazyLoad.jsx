@@ -148,7 +148,6 @@ export default class LazyLoad extends Component {
 
     // Make sure to load the image preload in case loaderImage is set to true 
     var img = null;
-    let noScriptImg = null;
     if(loaderImage === true) {
       img = this.preLoadImage();
     } else {
@@ -157,25 +156,12 @@ export default class LazyLoad extends Component {
       }
     }
 
-    if(this.props.addNoScript) {
-      const imgSrc = this.props.originalSrc || imageProps.src;
-      const className = imageProps.className;
-      const altVal = imageProps.alt || imgSrc;
-      if(className) {
-        noScriptImg = `<img class=${imageProps.className} src=${imgSrc} alt=${altVal} />`;
-      } else {
-        noScriptImg = `<img src=${imgSrc} alt=${altVal} />`;
-      }
-      
-    }
     return (
       <div className={elClasses} style={elStyles}>
         {img}
-        {this.props.addNoScript ? (<noscript
-          dangerouslySetInnerHTML={{
-            __html: noScriptImg
-          }}
-        />) : null}
+        {this.props.addNoScript ? (<noscript>
+          <img className={imageProps.className} src={this.props.originalSrc || imageProps.src} alt={imageProps.alt} />
+        </noscript>) : null}
       </div>
     );
   }
